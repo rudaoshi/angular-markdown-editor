@@ -1,0 +1,29 @@
+{
+  "name": "angular-markdown-editor",
+  "version": "1.0.0",
+  "description": "A powerful markdown editor for angular.",
+  "main": "src/editor.js ",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rudaoshi/angular-markdown-editor.git"
+  },
+  "keywords": [
+    "Markdown"
+  ],
+  "author": "sunmingming@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rudaoshi/angular-markdown-editor/issues"
+  },
+  "homepage": "https://github.com/rudaoshi/angular-markdown-editor",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-bowercopy": "^1.2.3"
+  }
+}

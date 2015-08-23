@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../vendor/javascripts/jquery.js"></script>
+    <script src="../vendor/javascripts/bootstrap.js"></script>
+    <script src="../vendor/javascripts/bootstrap-markdown.js"></script>
+    <script src="../vendor/javascripts/angular.js"></script>
+    <script src="../vendor/javascripts/marked.js"></script>
+
+    <script src="../src/render.js"></script>
+    <script src="../src/editor.js"></script>
+
+    <script src="test.app.js"></script>
+
+
+    <link rel="stylesheet" href="../vendor/stylesheets/bootstrap.css" />
+    <link rel="stylesheet" href="../vendor/stylesheets/bootstrap-markdown.min.css" />
+
+
+    
+    <title></title>
+</head>
+<body ng-app="test">
+
+    <div ng-controller="TestCtrl">
+        <textarea ng-model='value' markdownedit></textarea>
+    </div>
+
+</body>
+</html>
