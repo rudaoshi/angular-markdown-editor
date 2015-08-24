@@ -12,6 +12,12 @@ A powerful angular markdown editor.
   bower install angular-markdown-editor
 ```
 
+## Usage
+
+See test/test.html for example.
+
+Options please ref documents of bootstrap-markdown.
+
 ## Thanks
 
 This project borrow codes from following projects:
