@@ -1,3 +1,7 @@
+/**
+ * Created by Sun on 15/8/23.
+ */
+
 function addEvent(element, evnt, funct) {
     if (element.attachEvent)
         return element.attachEvent('on' + evnt, funct);
@@ -325,11 +329,10 @@ function render( markdown, theme, heading_number, show_toc) {
                 }
                 ul.appendChild(e);
             }
-        }
+        };
         traverse(toc, toc_html);
 
         var div = document.createElement('div');
-        div.className = 'container';
         var title = document.createElement('h1');
         title.appendChild(document.createTextNode('Table of Content'));
         div.appendChild(title);
@@ -340,7 +343,6 @@ function render( markdown, theme, heading_number, show_toc) {
     }
 
     var content = document.createElement('div');
-    content.className = 'container';
     content.innerHTML = html_with_mathjax;
 
     newNode.appendChild(content);
@@ -420,5 +422,58 @@ function render( markdown, theme, heading_number, show_toc) {
         tableEl.className = 'table table-striped table-bordered';
     }
 
-    return newNode.innerHTML;
+    var parentNode = document.createElement("div");
+    parentNode.appendChild(newNode);
+    return parentNode.innerHTML;
 };
+
+
+
+
+// directive
+(function() { 'use strict';
+  angular.module('angular-markdown-editor', [])
+  .directive('markdown-view', ['$window', '$sce', function($window, $sce) {
+
+    return {
+      template: "<div ng-bind-html='sanitisedHtml' />",
+      restrict: 'E',
+      replace: true,
+      scope: {
+        markdown: '=bindFrom' ,
+        class: '='
+      },
+      link: function(scope, element, attrs) {
+        scope.$watch('markdown', function(value) {
+          if (value != undefined && value != '') {
+            scope.html = render( value, null, null, true);
+          	scope.sanitisedHtml = $sce.trustAsHtml(scope.html);
+          }
+        });
+      }
+    };
+  }])
+
+.directive('markdownedit', [ '$window',
+        function($window) {
+    return {
+      restrict: 'A',
+      replace: false,
+      link: function(scope, element, attrs) {
+//        var hiddenButtons = attrs.markdownHiddenButtons ? attrs.markdownHiddenButtons.split(",") : new Array();
+//        hiddenButtons.push('cmdPreview');
+
+        var on_preview = function(obj)
+        {
+            var text = obj.$textarea.val();
+
+          	return render( text, null, null, true);
+        };
+        attrs.onPreview = on_preview;
+        element.markdown(attrs);
+      },
+    };
+  }])
+  ;
+
+}).call(this);

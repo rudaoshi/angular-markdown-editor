@@ -1,6 +1,6 @@
 {
   "name": "angular-markdown-editor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/rudaoshi/angular-markdown-editor",
   "authors": [
     "孙明明 <sunmingming@gmail.com>"
@@ -25,7 +25,8 @@
     "highlight": "~7.0.1",
     "bootstrap": "~3.3.5",
     "bootswatch": "~3.3.5+2",
-    "angularjs": "~1.4.4"
+    "angularjs": "~1.4.4",
+    "bootstrap-markdown": "rudaoshi/bootstrap-markdown"
   },
   "devDependencies": {}
 }

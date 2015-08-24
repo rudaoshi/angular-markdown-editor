@@ -18,7 +18,8 @@ module.exports = function (grunt) {
                     'angular.js': 'angularjs/angular.min.js',
                     'bootstrap.js':'bootstrap/dist/js/bootstrap.min.js',
                     'marked.js':'marked/lib/marked.js',
-                    'bootstrap-markdown.js':'bootstrap-markdown/js/bootstrap-markdown.js'
+                    'bootstrap-markdown.js':'bootstrap-markdown/js/bootstrap-markdown.js',
+                    'highlight.js': 'highlight/build/highlight.pack.js'
 
 
                 }
@@ -31,7 +32,9 @@ module.exports = function (grunt) {
                 ,
                 files: {
                     'bootstrap.css': 'bootstrap/dist/css/bootstrap.css',
-                    'bootstrap-markdown.min.css':'bootstrap-markdown/css/bootstrap-markdown.min.css',
+                    'bootstrap.css.map': 'bootstrap/dist/css/bootstrap.css.map',
+                    'bootstrap-markdown.css':'bootstrap-markdown/css/bootstrap-markdown.min.css',
+                    'highlight.css': 'highlight/src/styles/default.css'
 
                 }
 

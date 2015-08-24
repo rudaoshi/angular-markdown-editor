@@ -7,15 +7,18 @@
     <script src="../vendor/javascripts/bootstrap-markdown.js"></script>
     <script src="../vendor/javascripts/angular.js"></script>
     <script src="../vendor/javascripts/marked.js"></script>
+    <script src="../vendor/javascripts/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 
-    <script src="../src/render.js"></script>
-    <script src="../src/editor.js"></script>
+    <script src="../src/javascript/render.js"></script>
+    <script src="../src/javascript/angular-markdown-editor.js"></script>
 
     <script src="test.app.js"></script>
 
 
     <link rel="stylesheet" href="../vendor/stylesheets/bootstrap.css" />
-    <link rel="stylesheet" href="../vendor/stylesheets/bootstrap-markdown.min.css" />
+    <link rel="stylesheet" href="../vendor/stylesheets/highlight.css" />
+    <link rel="stylesheet" href="../vendor/stylesheets/bootstrap-markdown.css" />
 
 
     
@@ -23,8 +26,8 @@
 </head>
 <body ng-app="test">
 
-    <div ng-controller="TestCtrl">
-        <textarea ng-model='value' markdownedit></textarea>
+    <div ng-controller="TestCtrl" class="container-fluid">
+        <textarea ng-model='value' markdownedit height="800" savable="true"></textarea>
     </div>
 
 </body>
