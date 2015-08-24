@@ -1,15 +1,15 @@
-# angular-markdown-editor
+# angular-powermarker
 
 A powerful angular markdown editor.
 
 ## Feature
 
-* angular-markdown-editor = angularjs + bootstrap-markdown + strapdown_zeta
+* angular-powermarker = angularjs + bootstrap-markdown + strapdown_zeta
 
 ## Install 
 
 ```
-  bower install angular-markdown-editor
+  bower install angular-powermarker
 ```
 
 ## Usage
