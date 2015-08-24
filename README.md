@@ -8,8 +8,9 @@ A powerful angular markdown editor.
 
 ## Install 
 
+```
   bower install angular-markdown-editor
-
+```
 
 ## Thanks
 
