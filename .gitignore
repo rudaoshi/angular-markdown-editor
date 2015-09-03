@@ -3,4 +3,6 @@
 # IntelliJ project files
 .idea
 bower_components/**
+node_modules/**
+vendor/**
 # Created by .ignore support plugin (hsz.mobi)
