@@ -9,7 +9,7 @@ A powerful angular markdown editor.
 ## Install 
 
 ```
-  bower install angular-powermarker
+  bower install angular-power-marker
 ```
 
 ## Usage
