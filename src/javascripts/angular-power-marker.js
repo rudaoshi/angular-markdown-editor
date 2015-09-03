@@ -437,7 +437,7 @@ function render( preview_element, markdown, theme, heading_number, show_toc) {
 
 // directive
 (function() { 'use strict';
-  angular.module('angular-powermarker', [])
+  angular.module('angular-power-marker', [])
   .directive('markdown-view', ['$window', '$sce', function($window, $sce) {
 
     return {

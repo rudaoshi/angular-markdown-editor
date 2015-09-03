@@ -9,7 +9,7 @@
 
 var app = angular.module('test',
     [
-        'angular-powermarker'
+        'angular-power-marker'
 
     ]);
 
