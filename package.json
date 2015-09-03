@@ -24,6 +24,7 @@
   "homepage": "https://github.com/rudaoshi/angular-markdown-editor",
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-bowercopy": "^1.2.3"
+    "grunt-bowercopy": "^1.2.3",
+    "grunt-contrib-concat": "^0.5.1"
   }
 }
