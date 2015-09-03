@@ -9,7 +9,7 @@
 
 var app = angular.module('test',
     [
-        'angular-markdown-editor'
+        'angular-powermarker'
 
     ]);
 

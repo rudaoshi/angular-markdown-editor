@@ -1,7 +1,7 @@
 {
-  "name": "angular-markdown-editor",
+  "name": "angular-power-marker",
   "version": "0.0.2",
-  "homepage": "https://github.com/rudaoshi/angular-markdown-editor",
+  "homepage": "https://github.com/rudaoshi/angular-power-marker",
   "authors": [
     "孙明明 <sunmingming@gmail.com>"
   ],
@@ -21,12 +21,12 @@
     "tests"
   ],
   "dependencies": {
-    "marked": "~0.3.5",
-    "highlight": "~7.0.1",
+    "MathJax": "~2.5.3",
+    "angularjs": "~1.4.4",
     "bootstrap": "~3.3.5",
     "bootswatch": "~3.3.5+2",
-    "angularjs": "~1.4.4",
-    "bootstrap-markdown": "rudaoshi/bootstrap-markdown"
+    "highlight": "~7.0.1",
+    "marked": "~0.3.5"
   },
   "devDependencies": {}
 }

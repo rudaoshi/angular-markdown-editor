@@ -4,20 +4,50 @@
     <meta charset="UTF-8">
     <script src="../vendor/javascripts/jquery.js"></script>
     <script src="../vendor/javascripts/bootstrap.js"></script>
-    <script src="../vendor/javascripts/bootstrap-markdown.js"></script>
     <script src="../vendor/javascripts/angular.js"></script>
     <script src="../vendor/javascripts/marked.js"></script>
     <script src="../vendor/javascripts/highlight.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
-    <script src="../src/javascript/angular-powermarker.js"></script>
 
+
+    <script type="text/x-mathjax-config">
+        MathJax.Ajax.timeout = 60000;
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: true,
+                balanceBraces: true,
+            },
+            messageStyle: "none",
+            SVG: {
+                styles: {
+                    ".MathJax_SVG svg > g, .MathJax_SVG_Display svg > g": {
+                        "fill": "#4d4d4c",
+                        "stroke": "#4d4d4c"
+                    }
+                },
+                scale: 100
+            }
+        });
+
+        MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+           console.log(message[2].stack);  // message[2] is the error object
+        });
+
+
+    </script>
+    <script type="text/javascript" src="../vendor/MathJax/MathJax.js?config=TeX-AMS-MML_SVG"></script>
+
+    <script src="../src/javascript/angular-powermarker.js"></script>
+    <script src="../src/javascript/bootstrap-markdown.js"></script>
     <script src="test.app.js"></script>
 
 
     <link rel="stylesheet" href="../vendor/stylesheets/bootstrap.css" />
     <link rel="stylesheet" href="../vendor/stylesheets/highlight.css" />
-    <link rel="stylesheet" href="../vendor/stylesheets/bootstrap-markdown.css" />
+    <link rel="stylesheet" href="../src/stylesheets/bootstrap-markdown.css" />
 
 
     
