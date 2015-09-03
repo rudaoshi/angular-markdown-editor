@@ -1,8 +1,8 @@
 {
-  "name": "angular-markdown-editor",
-  "version": "1.0.0",
+  "name": "angular-power-marker",
+  "version": "0.0.5",
   "description": "A powerful markdown editor for angular.",
-  "main": "src/editor.js ",
+  "main": "src/javascripts/angular-power-marker.js ",
   "directories": {
     "test": "test"
   },
@@ -19,9 +19,9 @@
   "author": "sunmingming@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rudaoshi/angular-markdown-editor/issues"
+    "url": "https://github.com/rudaoshi/angular-power-marker/issues"
   },
-  "homepage": "https://github.com/rudaoshi/angular-markdown-editor",
+  "homepage": "https://github.com/rudaoshi/angular-power-marker",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-bowercopy": "^1.2.3",
