@@ -22,7 +22,7 @@
     "MathJax": "~2.5.3",
     "angularjs": "~1.4.4",
     "bootstrap": "~3.3.5",
-    "bootswatch": "~3.3.5+2",
+    "bootswatch": "~3.3.5",
     "highlight": "~7.0.1",
     "marked": "~0.3.5"
   },
