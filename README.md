@@ -4,7 +4,7 @@ A powerful angular markdown editor.
 
 ## Feature
 
-* angular-powermarker = angularjs + bootstrap-markdown + strapdown_zeta
+* angular-power-marker = angularjs + bootstrap-markdown + strapdown_zeta
 
 ## Install 
 
