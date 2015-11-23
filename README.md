@@ -1,6 +1,6 @@
 # angular-powermarker
 
-A powerful angular markdown editor.
+A powerful angular markdown editor and previewer.
 
 ## Feature
 
