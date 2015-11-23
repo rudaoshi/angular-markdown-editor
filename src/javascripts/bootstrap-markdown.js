@@ -29,7 +29,9 @@
         // @see : https://github.com/toopay/bootstrap-markdown/issues/109
         var opts = ['autofocus', 'savable', 'hideable', 'width',
             'height', 'resize', 'iconlibrary', 'language',
-            'footer', 'fullscreen', 'hiddenButtons', 'disabledButtons'];
+            'footer', 'fullscreen', 'hiddenButtons', 'disabledButtons',
+            'previewonly'
+        ];
         $.each(opts, function (_, opt) {
             if (typeof $(element).data(opt) !== 'undefined') {
                 options = typeof options == 'object' ? options : {}
@@ -54,6 +56,7 @@
         this.$nextTab = [];
 
         this.showEditor();
+
     };
 
     Markdown.prototype = {
@@ -507,7 +510,7 @@
 
             this.$previewarea = replacementContainer;
             // Try to get the content from callback
-            callbackContent = options.onPreview(this);
+
             // Set the content based from the callback content if string otherwise parse value from textarea
             //content = typeof callbackContent == 'string' ? callbackContent : this.parseContent();
 
@@ -527,13 +530,22 @@
             // Hide the last-active textarea
             container.hide();
 
+
+            this.__alterButtons('cmdPreview', function(el)
+            {
+                el.html('Edit')
+            });
+
             // Attach the editor instances
             this.$previewarea.data('markdown', this);
 
-            if (this.$element.is(':disabled') || this.$element.is('[readonly]')) {
+
+            if (this.$element.is(':disabled') || this.$element.is('[readonly]') || this.$options.previewonly) {
                 this.$editor.addClass('md-editor-disabled');
                 this.disableButtons('all');
             }
+
+            callbackContent = options.onPreview(this);
 
             return this;
         }
@@ -548,14 +560,23 @@
             // Remove the preview container
             container.remove();
 
+            this.__alterButtons('cmdPreview', function(el)
+            {
+                el.html('Preview')
+            });
+
+
             // Enable all buttons
             this.enableButtons('all');
             // Disable configured disabled buttons
             this.disableButtons(this.$options.disabledButtons);
 
+
             // Back to the editor
             this.$textarea.show();
             this.__setListener();
+
+
 
             return this;
         }
@@ -1346,7 +1367,7 @@
 
     /* MARKDOWN GLOBAL FUNCTION & DATA-API
      * ==================================== */
-    var initMarkdown = function (el) {
+ /*   var initMarkdown = function (el) {
         var $this = el;
 
         if ($this.data('markdown')) {
@@ -1355,7 +1376,7 @@
         }
 
         $this.markdown()
-    };
+    };*/
 
     var blurNonFocused = function (e) {
         var $activeElement = $(document.activeElement);
@@ -1374,17 +1395,18 @@
     };
 
     $(document)
-        .on('click.markdown.data-api', '[data-provide="markdown-editable"]', function (e) {
+/*        .on('click.markdown.data-api', '[data-provide="markdown-editable"]', function (e) {
             initMarkdown($(this));
             e.preventDefault();
-        })
+        })*/
         .on('click focusin', function (e) {
             blurNonFocused(e);
         })
         .ready(function () {
-            $('textarea[data-provide="markdown"]').each(function () {
-                initMarkdown($(this));
-            })
+//            $('textarea[data-provide="markdown"]').each(function () {
+//                initMarkdown($(this));
+//                this.showPreview();
+//            })
         });
 
 }(window.jQuery);

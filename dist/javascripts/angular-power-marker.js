@@ -1,7 +1,7 @@
 /*
 Concatinated JS file 
 Author: Mingming Sun 
-Created Date: 2015-09-03
+Created Date: 2015-11-23
  */ 
 /* ===================================================
  * bootstrap-markdown.js v2.9.0
@@ -34,7 +34,9 @@ Created Date: 2015-09-03
         // @see : https://github.com/toopay/bootstrap-markdown/issues/109
         var opts = ['autofocus', 'savable', 'hideable', 'width',
             'height', 'resize', 'iconlibrary', 'language',
-            'footer', 'fullscreen', 'hiddenButtons', 'disabledButtons'];
+            'footer', 'fullscreen', 'hiddenButtons', 'disabledButtons',
+            'previewonly'
+        ];
         $.each(opts, function (_, opt) {
             if (typeof $(element).data(opt) !== 'undefined') {
                 options = typeof options == 'object' ? options : {}
@@ -59,6 +61,7 @@ Created Date: 2015-09-03
         this.$nextTab = [];
 
         this.showEditor();
+
     };
 
     Markdown.prototype = {
@@ -512,7 +515,7 @@ Created Date: 2015-09-03
 
             this.$previewarea = replacementContainer;
             // Try to get the content from callback
-            callbackContent = options.onPreview(this);
+
             // Set the content based from the callback content if string otherwise parse value from textarea
             //content = typeof callbackContent == 'string' ? callbackContent : this.parseContent();
 
@@ -532,13 +535,22 @@ Created Date: 2015-09-03
             // Hide the last-active textarea
             container.hide();
 
+
+            this.__alterButtons('cmdPreview', function(el)
+            {
+                el.html('Edit')
+            });
+
             // Attach the editor instances
             this.$previewarea.data('markdown', this);
 
-            if (this.$element.is(':disabled') || this.$element.is('[readonly]')) {
+
+            if (this.$element.is(':disabled') || this.$element.is('[readonly]') || this.$options.previewonly) {
                 this.$editor.addClass('md-editor-disabled');
                 this.disableButtons('all');
             }
+
+            callbackContent = options.onPreview(this);
 
             return this;
         }
@@ -553,14 +565,23 @@ Created Date: 2015-09-03
             // Remove the preview container
             container.remove();
 
+            this.__alterButtons('cmdPreview', function(el)
+            {
+                el.html('Preview')
+            });
+
+
             // Enable all buttons
             this.enableButtons('all');
             // Disable configured disabled buttons
             this.disableButtons(this.$options.disabledButtons);
 
+
             // Back to the editor
             this.$textarea.show();
             this.__setListener();
+
+
 
             return this;
         }
@@ -1351,7 +1372,7 @@ Created Date: 2015-09-03
 
     /* MARKDOWN GLOBAL FUNCTION & DATA-API
      * ==================================== */
-    var initMarkdown = function (el) {
+ /*   var initMarkdown = function (el) {
         var $this = el;
 
         if ($this.data('markdown')) {
@@ -1360,7 +1381,7 @@ Created Date: 2015-09-03
         }
 
         $this.markdown()
-    };
+    };*/
 
     var blurNonFocused = function (e) {
         var $activeElement = $(document.activeElement);
@@ -1379,17 +1400,18 @@ Created Date: 2015-09-03
     };
 
     $(document)
-        .on('click.markdown.data-api', '[data-provide="markdown-editable"]', function (e) {
+/*        .on('click.markdown.data-api', '[data-provide="markdown-editable"]', function (e) {
             initMarkdown($(this));
             e.preventDefault();
-        })
+        })*/
         .on('click focusin', function (e) {
             blurNonFocused(e);
         })
         .ready(function () {
-            $('textarea[data-provide="markdown"]').each(function () {
-                initMarkdown($(this));
-            })
+//            $('textarea[data-provide="markdown"]').each(function () {
+//                initMarkdown($(this));
+//                this.showPreview();
+//            })
         });
 
 }(window.jQuery);
@@ -1439,7 +1461,7 @@ function upsertTheme(base, theme) {
     }
 }
 
-function render( preview_element, markdown, theme, heading_number, show_toc) {
+function render(preview_element, markdown, theme, heading_number, show_toc) {
 
     //////////////////////////////////////////////////////////////////////
     //
@@ -1787,7 +1809,7 @@ function render( preview_element, markdown, theme, heading_number, show_toc) {
         //    }
         //    document.getElementsByTagName("head")[0].appendChild(script);
         //} else {
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub, newNode]);
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, newNode]);
 //        }
 
     }
@@ -1823,58 +1845,71 @@ function render( preview_element, markdown, theme, heading_number, show_toc) {
         tableEl.className = 'table table-striped table-bordered';
     }
 
-    html =  preview_element.innerHTML;
+    html = preview_element.innerHTML;
 
     return html;
 };
 
 
-
-
 // directive
-(function() { 'use strict';
-  angular.module('angular-power-marker', [])
-  .directive('markdown-view', ['$window', '$sce', function($window, $sce) {
+(function () {
+    'use strict';
+    angular.module('angular-power-marker', [])
+        .directive('powermarker', ['$window', '$timeout',
+            function ($window, $timeout) {
+                return {
+                    restrict: 'AE',
+                    scope: {
 
-    return {
-      template: "<div ng-bind-html='sanitisedHtml' />",
-      restrict: 'E',
-      replace: true,
-      scope: {
-        markdown: '=bindFrom' ,
-        class: '='
-      },
-      link: function(scope, element, attrs) {
-        scope.$watch('markdown', function(value) {
-          if (value != undefined && value != '') {
-            scope.html = render( value, null, null, true);
-          	scope.sanitisedHtml = $sce.trustAsHtml(scope.html);
-          }
-        });
-      }
-    };
-  }])
+                    },
+                    replace: false,
+                    link: function ($scope, element, attrs) {
 
-.directive('markdownedit', [ '$window',
-        function($window) {
-    return {
-      restrict: 'A',
-      replace: false,
-      link: function(scope, element, attrs) {
-//        var hiddenButtons = attrs.markdownHiddenButtons ? attrs.markdownHiddenButtons.split(",") : new Array();
-//        hiddenButtons.push('cmdPreview');
+                        if (attrs.previewonly == undefined)
+                        {
+                            attrs.previewonly = false;
+                        }
+                        else if (typeof(attrs.readonly) != "boolean")
+                        {
+                            attrs.previewonly = $scope.$eval(attrs.previewonly);
+                        }
 
-        var on_preview = function(obj)
-        {
-            var text = obj.$textarea.val();
-            var preview = obj.$previewarea[0];
-          	return render(preview, text, null, null, true);
-        };
-        attrs.onPreview = on_preview;
-        element.markdown(attrs);
-      },
-    };
-  }])
-  ;
+
+                        if (attrs.start == undefined)
+                        {
+                            attrs.start = "preview";
+                        }
+
+                        if (attrs.start != "preview" && attrs.start != "edit")
+                        {
+                            alert("Unknown how to start.");
+                            attrs.start = "preview";
+                        }
+
+                        var on_preview = function (obj) {
+                            var text = obj.$textarea.val();
+                            var preview = obj.$previewarea[0];
+                            return render(preview, text, null, null, true);
+                        };
+                        attrs.onPreview = on_preview;
+                        var m = element.markdown(attrs);
+
+                        $timeout(function(){
+                            if(attrs.start == "preview")
+                            {
+                                m.data('markdown').showPreview();
+                            }
+                            else if (attrs.start == "edit")
+                            {
+                                m.data('markdown').showEditor();
+                            }
+
+                        });
+
+
+                    },
+                };
+            }])
+    ;
 
 }).call(this);
