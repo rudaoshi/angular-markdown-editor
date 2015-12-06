@@ -1,7 +1,7 @@
 /*
 Concatinated JS file 
 Author: Mingming Sun 
-Created Date: 2015-11-23
+Created Date: 2015-12-06
  */ 
 /* ===================================================
  * bootstrap-markdown.js v2.9.0
@@ -1859,9 +1859,6 @@ function render(preview_element, markdown, theme, heading_number, show_toc) {
             function ($window, $timeout) {
                 return {
                     restrict: 'AE',
-                    scope: {
-
-                    },
                     replace: false,
                     link: function ($scope, element, attrs) {
 
@@ -1892,6 +1889,16 @@ function render(preview_element, markdown, theme, heading_number, show_toc) {
                             return render(preview, text, null, null, true);
                         };
                         attrs.onPreview = on_preview;
+
+                        if (attrs.onSave != undefined)
+                        {
+                            var onsave_func = $scope.$eval(attrs.onSave);
+                            attrs.onSave = function(e) {
+                                onsave_func(e.getContent());
+                            };
+                        }
+
+
                         var m = element.markdown(attrs);
 
                         $timeout(function(){

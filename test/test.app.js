@@ -41,8 +41,16 @@ $$ \frac{R_a T_{im}}{V_{im}} $$\n\
 | double dollar | also works |   \$\$12 |\n\
 | zebra stripes | are neat      |    \$\$1 |\n\
 \n\
-Hey, let's do something fantastic.\n"
+Hey, let's do something fantastic.\n";
+
+
+            $scope.on_save = function(txt)
+            {
+                alert(txt);
+            }
+
         }]);
+
 
 
 }).call(this);
