@@ -1,7 +1,7 @@
 /*
 Concatinated JS file 
 Author: Mingming Sun 
-Created Date: 2015-12-06
+Created Date: 2016-01-03
  */ 
 /* ===================================================
  * bootstrap-markdown.js v2.9.0
@@ -1859,28 +1859,45 @@ function render(preview_element, markdown, theme, heading_number, show_toc) {
             function ($window, $timeout) {
                 return {
                     restrict: 'AE',
+                    scope: {
+                        // models
+                        start: "@",
+                        previewonly: "@"
+                    },
                     replace: false,
                     link: function ($scope, element, attrs) {
 
-                        if (attrs.previewonly == undefined)
+                        function boolean_directive($scope, variable, default_val)
                         {
-                            attrs.previewonly = false;
-                        }
-                        else if (typeof(attrs.readonly) != "boolean")
-                        {
-                            attrs.previewonly = $scope.$eval(attrs.previewonly);
+                            if ($scope[variable] == undefined)
+                            {
+                                $scope[variable] = default_val;
+                            }
+
+                            if (typeof($scope[variable]) != "boolean") {
+                                    $scope[variable] = $scope.$eval($scope[variable]);
+                                }
+
+                            $scope.$watch(variable, function(newValue, oldValue) {
+
+                                if (typeof($scope[variable]) != "boolean") {
+                                    $scope[variable] = $scope.$eval($scope[variable]);
+                                }
+                            });
                         }
 
+                        boolean_directive($scope, 'previewonly', true);
 
-                        if (attrs.start == undefined)
+
+                        if ($scope.start == undefined)
                         {
-                            attrs.start = "preview";
+                            $scope.start = "preview";
                         }
 
-                        if (attrs.start != "preview" && attrs.start != "edit")
+                        if ($scope.start != "preview" && $scope.start != "edit")
                         {
                             alert("Unknown how to start.");
-                            attrs.start = "preview";
+                            $scope.start = "preview";
                         }
 
                         var on_preview = function (obj) {
@@ -1898,6 +1915,8 @@ function render(preview_element, markdown, theme, heading_number, show_toc) {
                             };
                         }
 
+                        attrs.start = $scope.start;
+                        attrs.previewonly = $scope.previewonly;
 
                         var m = element.markdown(attrs);
 
