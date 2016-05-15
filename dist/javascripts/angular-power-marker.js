@@ -1,7 +1,7 @@
 /*
 Concatinated JS file 
 Author: Mingming Sun 
-Created Date: 2016-01-03
+Created Date: 2016-05-15
  */ 
 /* ===================================================
  * bootstrap-markdown.js v2.9.0
@@ -1862,7 +1862,8 @@ function render(preview_element, markdown, theme, heading_number, show_toc) {
                     scope: {
                         // models
                         start: "@",
-                        previewonly: "@"
+                        previewonly: "@",
+                        onSave: "="
                     },
                     replace: false,
                     link: function ($scope, element, attrs) {
@@ -1906,14 +1907,10 @@ function render(preview_element, markdown, theme, heading_number, show_toc) {
                             return render(preview, text, null, null, true);
                         };
                         attrs.onPreview = on_preview;
-
-                        if (attrs.onSave != undefined)
-                        {
-                            var onsave_func = $scope.$eval(attrs.onSave);
-                            attrs.onSave = function(e) {
-                                onsave_func(e.getContent());
+                        attrs.onSave = function(e) {
+                                $scope.onSave(e.getContent());
                             };
-                        }
+                        
 
                         attrs.start = $scope.start;
                         attrs.previewonly = $scope.previewonly;
