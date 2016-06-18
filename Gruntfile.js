@@ -18,7 +18,7 @@ module.exports = function (grunt) {
                         'angular.js': 'angularjs/angular.min.js',
                         'bootstrap.js': 'bootstrap/dist/js/bootstrap.min.js',
                         'marked.js': 'marked/lib/marked.js',
-                        'highlight.js': 'highlight/build/highlight.pack.js'
+                        'highlight.js': 'highlight/src/highlight.js'
 
 
                     }
@@ -82,6 +82,19 @@ module.exports = function (grunt) {
                     // the resulting JS file
                     dest: 'dist/stylesheets/angular-power-marker.css'
                 }
+            },
+
+            watch: {
+                 css: {
+                    files: ['src/stylesheets/bootstrap-markdown.css'],
+                    options: {livereload:true},
+                    tasks: ['concat:css']
+                  },
+                  js: {
+                    files: ['src/javascripts/bootstrap-markdown.js', 'src/javascripts/angular-power-marker.js'],
+                    options: {livereload:true},
+                    tasks: ['concat:script']
+                  }
             }
         }
     );
@@ -89,7 +102,9 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-bowercopy');
     grunt.loadNpmTasks('grunt-contrib-concat');
-
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-livereload');
+    grunt.registerTask('watchdev', ['bowercopy', 'concat','watch']);
     grunt.registerTask('default', ['bowercopy', 'concat']);
 
 };
